@@ -48,6 +48,7 @@ async function execute(
     return interaction.reply({
       content:
         "Can't do this with an account that is missing the new kind of Discord username",
+      ephemeral: true,
     });
   }
 
