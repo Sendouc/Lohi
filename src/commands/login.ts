@@ -73,14 +73,14 @@ async function execute(
     method: "post",
   });
 
-  if (updateOnly) {
-    if (!response.ok) {
-      return interaction.reply({
-        content: "Something went wrong when updating",
-        ephemeral: true,
-      });
-    }
+  if (!response.ok) {
+    return interaction.reply({
+      content: "Having problems reaching sendou.ink, please try again later",
+      ephemeral: true,
+    });
+  }
 
+  if (updateOnly) {
     return interaction.reply({
       content: "Updated your profile on sendou.ink",
       ephemeral: true,
