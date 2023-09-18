@@ -41,10 +41,10 @@ async function execute(
   }
 
   const hasUniqueUsername = user.discriminator === "0";
+  const discordName = user.globalName ?? user.username;
+  const discordUniqueName = user.username;
 
-  const discordName = hasUniqueUsername ? user.globalName : user.username;
-  const discordUniqueName = hasUniqueUsername ? user.username : null;
-  if (!discordName || !discordUniqueName) {
+  if (!hasUniqueUsername) {
     return interaction.reply({
       content:
         "Can't do this with an account that is missing the new kind of Discord username",
