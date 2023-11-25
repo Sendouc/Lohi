@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import type { CommandInteraction, User } from "discord.js";
 import ids from "../ids";
 import type { BotCommand } from "../types";
-import { sendouInkFetch } from "../utils";
+import { patronsFiveDollarsAndOver, sendouInkFetch } from "../utils";
 
 const LOGIN_COMMAND_NAME = "login";
 const UPDATE_PROFILE_COMMAND_NAME = "update-profile";
@@ -37,6 +37,16 @@ async function execute(
   if (!user) {
     return interaction.reply({
       content: "Something went wrong",
+    });
+  }
+
+  const patrons = await patronsFiveDollarsAndOver();
+
+  if (!patrons.some((p) => p.discordId === interaction.user.id)) {
+    return interaction.reply({
+      content:
+        "This command is only available to patrons of 'Supporter' tier or higher https://www.patreon.com/sendou",
+      ephemeral: true,
     });
   }
 
