@@ -40,14 +40,16 @@ async function execute(
     });
   }
 
-  const patrons = await patronsFiveDollarsAndOver();
+  if (!updateOnly) {
+    const patrons = await patronsFiveDollarsAndOver();
 
-  if (!patrons.some((p) => p.discordId === interaction.user.id)) {
-    return interaction.reply({
-      content:
-        "This command is only available to patrons of 'Supporter' tier or higher https://www.patreon.com/sendou",
-      ephemeral: true,
-    });
+    if (!patrons.some((p) => p.discordId === interaction.user.id)) {
+      return interaction.reply({
+        content:
+          "This command is only available to patrons of 'Supporter' tier or higher https://www.patreon.com/sendou",
+        ephemeral: true,
+      });
+    }
   }
 
   const hasUniqueUsername = user.discriminator === "0";
