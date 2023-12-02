@@ -4,6 +4,7 @@ import invariant from "tiny-invariant";
 import ids from "../ids";
 import type { BotCommand } from "../types";
 import { plusTierToRoleId, usersWithAccess } from "../utils";
+import { clearUsersWithAccessCache } from "./access";
 
 const COMMAND_NAME = "plus";
 const ACTION_ARG = "dry";
@@ -25,6 +26,10 @@ export const plusCommand: BotCommand = {
     const isDryRun = interaction.options.getBoolean(ACTION_ARG);
 
     await interaction.deferReply({ ephemeral: true });
+
+    // the call before is not cached but this is done so that people who join
+    // the server get the latest status
+    clearUsersWithAccessCache();
 
     const { users } = await usersWithAccess();
 

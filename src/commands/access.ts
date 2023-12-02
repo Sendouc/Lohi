@@ -86,3 +86,8 @@ async function usersWithAccessCached() {
 
   return usersWithAccessCache;
 }
+
+export function clearUsersWithAccessCache() {
+  cachedAt = null;
+  usersWithAccessCache = null;
+}
